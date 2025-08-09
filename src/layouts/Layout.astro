@@ -1,0 +1,263 @@
+---
+import '../styles/global.css';
+import { initAccessibility } from '../utils/accessibility';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  noIndex?: boolean;
+  structuredData?: object;
+}
+
+const { 
+  title, 
+  description = 'Dr\'s Palate - Pure Vegetarian Cloud Kitchen in Udupi, Karnataka',
+  canonicalUrl,
+  noIndex = false,
+  structuredData = {}
+} = Astro.props;
+
+// Default structured data if none provided
+const defaultStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Dr's Palate",
+  "description": description,
+  "servesCuisine": ["Indian", "South Indian", "North Indian", "Vegetarian"],
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Food Street",
+    "addressLocality": "Udupi",
+    "addressRegion": "Karnataka",
+    "postalCode": "576101",
+    "addressCountry": "IN"
+  },
+  "telephone": "+916360819802",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "08:00",
+      "closes": "23:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Sunday",
+      "opens": "09:00",
+      "closes": "22:00"
+    }
+  ],
+  "image": "https://drspalate.com/images/og-image.jpg",
+  "menu": "https://drspalate.com/menu",
+  "acceptsReservations": true,
+  "servesCuisine": ["Vegetarian", "Indian", "South Indian"],
+  "hasMenu": {
+    "@type": "Menu",
+    "name": "Main Menu",
+    "url": "https://drspalate.com/menu"
+  },
+  "sameAs": [
+    "https://www.facebook.com/drspalate",
+    "https://www.instagram.com/drspalate",
+    "https://twitter.com/drspalate"
+  ]
+};
+
+const pageStructuredData = Object.keys(structuredData).length > 0 
+  ? structuredData 
+  : defaultStructuredData;
+
+const canonical = canonicalUrl || new URL(Astro.url.pathname, 'https://drspalate.com').toString();
+const pageTitle = title ? `${title} | Dr's Palate` : "Dr's Palate | Pure Vegetarian Cloud Kitchen";
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <title>{pageTitle}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#0d9488" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Preload critical resources -->
+    <link 
+      rel="preload" 
+      href="/fonts/poppins-v20-latin-regular.woff2" 
+      as="font" 
+      type="font/woff2" 
+      crossorigin 
+    />
+    <link 
+      rel="preload" 
+      href="/fonts/open-sans-v34-latin-regular.woff2" 
+      as="font" 
+      type="font/woff2" 
+      crossorigin 
+    />
+    
+    <!-- Preload hero image -->
+    <link 
+      rel="preload" 
+      as="image" 
+      href="/images/hero-bg.jpg" 
+      imagesrcset="/images/hero-bg-400.jpg 400w, /images/hero-bg-800.jpg 800w, /images/hero-bg-1200.jpg 1200w, /images/hero-bg-1600.jpg 1600w"
+      imagesizes="100vw"
+    />
+    
+    <!-- Open Graph / Social Media Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://drspalate.com/images/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Dr's Palate" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://drspalate.com/images/twitter-card.jpg" />
+    
+    <!-- Theme Color for Mobile Browsers -->
+    <meta name="theme-color" content="#0d9488" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f766e" media="(prefers-color-scheme: dark)" />
+    <meta name="msapplication-TileColor" content="#0d9488" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonical} />
+    
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(pageStructuredData)} />
+    
+    <!-- Preload critical CSS -->
+    <style is:inline>
+      /* Critical CSS for above-the-fold content */
+      html { scroll-behavior: smooth; }
+      .skip-to-content {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        z-index: 9999;
+        padding: 8px 16px;
+        background: #0d9488;
+        color: white;
+        transition: transform 0.3s;
+      }
+      .skip-to-content:focus {
+        transform: translateY(40px);
+      }
+    </style>
+  </head>
+  <body class="antialiased text-gray-800 bg-white dark:bg-gray-900 dark:text-gray-200">
+    <a href="#main-content" class="skip-to-content">
+      Skip to main content
+    </a>
+    
+    <div id="root">
+      <Header />
+      
+      <main id="main-content" tabindex="-1">
+        <slot />
+      </main>
+      
+      <Footer />
+    </div>
+    
+    <!-- Load non-critical CSS asynchronously -->
+    <link 
+      rel="preload" 
+      href="/styles/critical.css" 
+      as="style" 
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="/styles/critical.css" />
+    </noscript>
+    
+    <!-- Load scripts -->
+    <script>
+      // Initialize accessibility features
+      document.documentElement.classList.add('js');
+      
+      // Load web fonts with font-display: swap
+      if ('fonts' in document) {
+        Promise.all([
+          document.fonts.load('1em Poppins'),
+          document.fonts.load('1em "Open Sans"')
+        ]).then(() => {
+          document.documentElement.classList.add('fonts-loaded');
+        });
+      }
+      
+      // Initialize accessibility features
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initialize accessibility features from our utility
+        if (typeof initAccessibility === 'function') {
+          initAccessibility();
+        }
+        
+        // Add loading class to body for transition effects
+        document.body.classList.add('loaded');
+        
+        // Remove focus styles for mouse users
+        document.addEventListener('mousedown', function() {
+          document.body.classList.add('using-mouse');
+          document.body.classList.remove('using-keyboard');
+        });
+        
+        // Add focus styles for keyboard users
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Tab') {
+            document.body.classList.add('using-keyboard');
+            document.body.classList.remove('using-mouse');
+          }
+        });
+      });
+      
+      // Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+    
+    <!-- Load non-critical scripts -->
+    <script 
+      src="/scripts/main.js" 
+      type="module" 
+      defer 
+      onload="console.log('Main script loaded')"
+    ></script>
+  </body>
+</html>

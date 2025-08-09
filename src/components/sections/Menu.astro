@@ -1,0 +1,123 @@
+---
+import { FaLeaf, FaStar, FaFire } from 'react-icons/fa';
+
+const menuCategories = [
+  {
+    id: 'dinner',
+    name: 'Dinner',
+    items: [
+      {
+        name: 'Stuffed Bell Peppers',
+        description: 'Colorful bell peppers stuffed with quinoa, vegetables, and melted cheese',
+        price: '₹240',
+        isPopular: true,
+        isSpicy: false,
+        isVegan: false
+      },
+      {
+        name: 'Vegetable Biryani',
+        description: 'Fragrant basmati rice cooked with seasonal vegetables and aromatic spices',
+        price: '₹220',
+        isPopular: true,
+        isSpicy: true,
+        isVegan: true
+      },
+      {
+        name: 'Quinoa & Roasted Vegetable Bowl',
+        description: 'Nutrient-packed quinoa with seasonal roasted vegetables, tahini dressing, and sprouts',
+        price: '₹220',
+        isPopular: true,
+        isSpicy: false,
+        isVegan: true
+      },
+      {
+        name: 'Paneer Tikka Wrap',
+        description: 'Grilled paneer tikka with mint chutney, fresh vegetables in a whole wheat wrap',
+        price: '₹200',
+        isPopular: true,
+        isSpicy: true,
+        isVegan: false
+      },
+      {
+        name: 'Lentil & Spinach Soup',
+        description: 'Hearty lentil soup with fresh spinach, served with multigrain bread',
+        price: '₹180',
+        isPopular: false,
+        isSpicy: false,
+        isVegan: true
+      },
+      {
+        name: 'Palak Paneer with Brown Rice',
+        description: 'Fresh spinach curry with homemade paneer, served with brown rice',
+        price: '₹230',
+        isPopular: false,
+        isSpicy: false,
+        isVegan: false
+      },
+    ]
+  },
+];
+---
+
+<section id="menu" class="section bg-gray-50">
+  <div class="container">
+    <div class="section-title">
+      <span class="text-primary-600 font-medium">Our Menu</span>
+      <h2>Delicious & Healthy Choices</h2>
+      <div class="divider"></div>
+      <p class="text-gray-600 max-w-3xl mx-auto">
+        Explore our carefully crafted menu featuring nutritious and flavorful vegetarian dishes made with the freshest ingredients.
+      </p>
+    </div>
+    
+    <div class="space-y-12">
+      {menuCategories.map(category => (
+        <div key={category.id} id={category.id} class="scroll-mt-24">          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {category.items.map((item, index) => (
+              <div key={index} class={`bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg ${item.isPopular ? 'border-2 border-primary-200' : 'border border-gray-100'}`}>
+                <div class="p-6">
+                  <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-lg font-semibold text-gray-900">
+                      {item.name}
+                      {item.isPopular && (
+                        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                          <FaStar class="mr-1" /> Popular
+                        </span>
+                      )}
+                    </h4>
+                    <span class="text-lg font-bold text-primary-600">{item.price}</span>
+                  </div>
+                  
+                  <p class="text-gray-600 text-sm mb-4">{item.description}</p>
+                  
+                  <div class="flex items-center text-xs text-gray-500 space-x-3">
+                    {item.isVegan && (
+                      <span class="inline-flex items-center">
+                        <FaLeaf class="mr-1 text-green-600" />&nbsp;Vegan
+                      </span>
+                    )}
+                    {item.isSpicy && (
+                      <span class="inline-flex items-center">
+                        <FaFire class="mr-1 text-red-500" />&nbsp;Spicy
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <div class="mt-12 text-center">
+      <p class="text-gray-600 mb-6">
+        * Please inform us about any food allergies or dietary restrictions.
+      </p>
+      <a href="#contact" class="btn btn-primary">
+        Place an Order
+      </a>
+    </div>
+  </div>
+</section>

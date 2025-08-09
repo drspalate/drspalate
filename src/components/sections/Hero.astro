@@ -1,0 +1,75 @@
+---
+import { FaUtensils, FaLeaf, FaHeart } from 'react-icons/fa';
+---
+
+<section id="home" class="relative overflow-hidden bg-gray-50">
+  {/* Background image */}
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.pexels.com/photos/247685/pexels-photo-247685.png"
+      alt="Healthy vegetarian food"
+      class="w-full h-full object-cover opacity-30"
+      loading="eager"
+    />
+  </div>
+
+  <div class="relative z-10 container py-24 md:py-32 lg:py-40">
+    <div class="max-w-3xl">
+      <span class="inline-block px-3 py-1 mb-4 text-sm font-medium text-primary-700 bg-primary-100 rounded-full">
+        Welcome to Dr's Palate
+      </span>
+      
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+        Healthy, Delicious <span class="text-primary-600">Vegetarian</span> Cuisine
+      </h1>
+      
+      <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl">
+        Experience the perfect blend of taste and nutrition with our chef-crafted vegetarian dishes, made from the freshest ingredients.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a href="#menu" class="btn btn-primary">
+          View Our Menu
+        </a>
+        <a href="#contact" class="btn btn-outline">
+          Contact Us
+        </a>
+      </div>
+      
+      <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 bg-primary-100 p-3 rounded-full text-primary-600">
+            <FaLeaf class="w-6 h-6" />
+          </div>
+          <div class="ml-4">
+            <h3 class="font-semibold text-gray-900">100% Vegetarian</h3>
+            <p class="text-sm text-gray-600">Pure veg ingredients</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center">
+          <div class="flex-shrink-0 bg-primary-100 p-3 rounded-full text-primary-600">
+            <FaHeart class="w-6 h-6" />
+          </div>
+          <div class="ml-4">
+            <h3 class="font-semibold text-gray-900">Healthy & Fresh</h3>
+            <p class="text-sm text-gray-600">Nutrient-rich meals</p>
+          </div>
+        </div>
+        
+        <div class="flex items-center">
+          <div class="flex-shrink-0 bg-primary-100 p-3 rounded-full text-primary-600">
+            <FaUtensils class="w-6 h-6" />
+          </div>
+          <div class="ml-4">
+            <h3 class="font-semibold text-gray-900">Tasty & Delicious</h3>
+            <p class="text-sm text-gray-600">Flavorful recipes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {/* Decorative elements */}
+  <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+</section>

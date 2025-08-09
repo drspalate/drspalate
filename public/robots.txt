@@ -1,0 +1,20 @@
+# Dr's Palate - robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://drspalate.com/sitemap.xml
+
+# Disallow admin and login pages
+Disallow: /admin/
+Disallow: /login/
+Disallow: /private/
+
+# Allow all other pages
+Allow: /*.html$
+Allow: /*.css$
+Allow: /*.js$
+
+# Crawl-delay: 10  # Uncomment if needed to limit crawl rate

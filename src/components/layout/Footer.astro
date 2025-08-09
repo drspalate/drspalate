@@ -1,0 +1,122 @@
+---
+import { FaFacebook, FaInstagram, FaTwitter, FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock } from 'react-icons/fa';
+
+const contactInfo = [
+  {
+    icon: FaMapMarkerAlt,
+    text: '5.3.41, Beedinagudded, Udupi, Karnataka 576101',
+    href: 'https://maps.google.com',
+  },
+  {
+    icon: FaPhone,
+    text: '+91 6360819802',
+    href: 'tel:+916360819802',
+  },
+  {
+    icon: FaEnvelope,
+    text: 'drspalate@gmail.com',
+    href: 'mailto:drspalate@gmail.com',
+  },
+  {
+    icon: FaClock,
+    text: 'Open: 5:00 PM - 10:00 PM (Mon-Sun)',
+  },
+];
+
+const socialLinks = [
+  { icon: FaFacebook, href: 'https://facebook.com/drspalate', label: 'Facebook' },
+  { icon: FaInstagram, href: 'https://instagram.com/drspalate', label: 'Instagram' },
+  { icon: FaTwitter, href: 'https://twitter.com/drspalate', label: 'Twitter' },
+];
+
+const quickLinks = [
+  { name: 'Home', href: '#home' },
+  { name: 'Menu', href: '#menu' },
+  { name: 'Gallery', href: '#gallery' },
+  { name: 'Contact', href: '#contact' },
+];
+---
+
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+  <div class="container">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {/* About */}
+      <div class="lg:col-span-2">
+        <div class="flex items-center mb-4">
+          <img src="/logo.png" alt="Dr's Palate" class="h-12 w-auto" />
+          <span class="ml-3 text-2xl font-bold">Dr's Palate</span>
+        </div>
+        <p class="text-gray-300 mb-6">
+          Serving delicious, healthy, and nutritious vegetarian meals made with fresh ingredients. 
+          Our mission is to provide wholesome food that nourishes both body and soul.
+        </p>
+        <div class="flex space-x-4">
+          {socialLinks.map((social) => {
+            const Icon = social.icon;
+            return (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-300 hover:text-white transition-colors"
+                aria-label={social.label}
+              >
+                <Icon className="w-5 h-5" />
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Quick Links */}
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2">
+          {quickLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-gray-300 hover:text-white transition-colors"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Contact Info */}
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+        <ul class="space-y-3">
+          {contactInfo.map((item) => {
+            const Icon = item.icon;
+            return (
+              <li class="flex items-start">
+                <Icon className="mt-1 mr-3 text-primary-400 flex-shrink-0" />
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-gray-300 hover:text-white transition-colors"
+                  >
+                    {item.text}
+                  </a>
+                ) : (
+                  <span class="text-gray-300">{item.text}</span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </div>
+
+    {/* Copyright */}
+    <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+      <p>&copy; {new Date().getFullYear()} Dr's Palate. All rights reserved.</p>
+      <p class="mt-2">Made with ❤️ in Udupi, India</p>
+    </div>
+  </div>
+</footer>

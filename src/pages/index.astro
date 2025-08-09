@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Menu from '../components/sections/Menu.astro';
+import Gallery from '../components/sections/Gallery.astro';
+import Contact from '../components/sections/Contact.astro';
+
+const title = 'Home';
+const description = 'Dr\'s Palate - Healthy, delicious vegetarian cuisine made with fresh ingredients in Udupi, Karnataka.';
+---
+
+<Layout {title} {description}>
+  <Hero />
+  <Menu />
+  <Gallery />
+  <Contact />
+</Layout>
