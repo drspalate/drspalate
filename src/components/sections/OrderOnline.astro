@@ -1,0 +1,76 @@
+---
+import { FaWhatsapp, FaShoppingBag, FaMotorcycle } from 'react-icons/fa';
+
+const orderOptions = [
+  {
+    id: 'zomato',
+    title: 'Order via Zomato',
+    description: 'Get your favorite dishes delivered through Zomato',
+    icon: FaShoppingBag,
+    ctaText: 'Order on Zomato',
+    ctaLink: 'https://www.zomato.com/udupi/drs-palate-locality/order',
+    color: 'bg-red-50 text-red-700',
+    iconColor: 'text-red-600',
+    hoverColor: 'hover:bg-red-600',
+  },
+  {
+    id: 'swiggy',
+    title: 'Order via Swiggy',
+    description: 'Get your favorite food delivered quickly with Swiggy',
+    icon: FaMotorcycle,
+    ctaText: 'Order on Swiggy',
+    ctaLink: 'https://www.swiggy.com/restaurants/drs-palate-udupi',
+    color: 'bg-orange-50 text-orange-700',
+    iconColor: 'text-orange-600',
+    hoverColor: 'hover:bg-orange-600',
+  },
+  {
+    id: 'whatsapp',
+    title: 'Pickup Order',
+    description: 'Send us a message on WhatsApp & place your order',
+    icon: FaWhatsapp,
+    ctaText: 'Order on WhatsApp',
+    ctaLink: 'https://wa.me/916360819802',
+    color: 'bg-green-100 text-green-700',
+    iconColor: 'text-green-600',
+    hoverColor: 'hover:bg-green-600',
+  },
+];
+---
+
+<section id="order" class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Order Your Favorite Food</h2>
+      <div class="w-24 h-1 bg-primary-600 mx-auto mb-6"></div>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Choose your preferred way to order and enjoy our delicious vegetarian meals
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {orderOptions.map((option) => {
+        const Icon = option.icon;
+        return (
+          <div class={`bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg ${option.color} hover:transform hover:-translate-y-1`}>
+            <div class="p-6">
+              <div class={`w-14 h-14 ${option.iconColor} rounded-full flex items-center justify-center mb-4 text-2xl`}>
+                <Icon />
+              </div>
+              <h3 class="text-xl font-bold mb-2">{option.title}</h3>
+              <p class="text-gray-700 mb-4">{option.description}</p>
+              <a 
+                href={option.ctaLink} 
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`inline-block px-6 py-2 rounded-full font-medium text-white ${option.hoverColor} transition-colors ${option.id === 'whatsapp' ? 'bg-green-600' : option.id === 'zomato' ? 'bg-red-600' : option.id === 'swiggy' ? 'bg-orange-600' : 'bg-blue-600'} hover:text-white`}
+              >
+                {option.ctaText}
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

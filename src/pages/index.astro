@@ -1,17 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/sections/Hero.astro';
-import Menu from '../components/sections/Menu.astro';
-import Gallery from '../components/sections/Gallery.astro';
-import Contact from '../components/sections/Contact.astro';
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/sections/Hero.astro";
+import Menu from "../components/sections/Menu.astro";
+import OrderOnline from "../components/sections/OrderOnline.astro";
+import Contact from "../components/sections/Contact.astro";
 
-const title = 'Home';
-const description = 'Dr\'s Palate - Healthy, delicious vegetarian cuisine made with fresh ingredients in Udupi, Karnataka.';
+const title = "Dr's Palate";
+const description = "Pure Vegetarian Cloud Kitchen";
 ---
 
-<Layout {title} {description}>
+<Layout {title} - {description}>
   <Hero />
   <Menu />
-  <Gallery />
+  <OrderOnline />
   <Contact />
 </Layout>

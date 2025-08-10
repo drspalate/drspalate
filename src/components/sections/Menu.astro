@@ -1,123 +1,348 @@
 ---
-import { FaLeaf, FaStar, FaFire } from 'react-icons/fa';
+import MenuItem from "./MenuItem.astro";
 
-const menuCategories = [
+const weekdaysMenu = [
   {
-    id: 'dinner',
-    name: 'Dinner',
+    id: "weekdays-menu",
+    name: "Weekdays Menu",
     items: [
       {
-        name: 'Stuffed Bell Peppers',
-        description: 'Colorful bell peppers stuffed with quinoa, vegetables, and melted cheese',
-        price: '₹240',
-        isPopular: true,
-        isSpicy: false,
-        isVegan: false
-      },
-      {
-        name: 'Vegetable Biryani',
-        description: 'Fragrant basmati rice cooked with seasonal vegetables and aromatic spices',
-        price: '₹220',
+        name: "Vegetable Curry with Brown Rice",
+        description:
+          "Seasonal vegetables cooked in a rich, aromatic curry sauce, served with brown rice",
+        price: "₹220",
         isPopular: true,
         isSpicy: true,
-        isVegan: true
+        isVegan: true,
+        image:
+          "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        nutrition: {
+          calories: "420",
+          protein: "12g",
+          carbs: "58g",
+          fiber: "8g",
+          fat: "16g",
+        },
       },
       {
-        name: 'Quinoa & Roasted Vegetable Bowl',
-        description: 'Nutrient-packed quinoa with seasonal roasted vegetables, tahini dressing, and sprouts',
-        price: '₹220',
+        name: "Palak Paneer with Naan",
+        description:
+          "Fresh spinach curry with homemade paneer, served with whole wheat naan",
+        price: "₹250",
         isPopular: true,
         isSpicy: false,
-        isVegan: true
+        isVegan: false,
+        image:
+          "https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1971&q=80",
+        nutrition: {
+          calories: "480",
+          protein: "18g",
+          carbs: "45g",
+          fiber: "6g",
+          fat: "24g",
+        },
       },
       {
-        name: 'Paneer Tikka Wrap',
-        description: 'Grilled paneer tikka with mint chutney, fresh vegetables in a whole wheat wrap',
-        price: '₹200',
+        name: "Mushroom Masala with Jeera Rice",
+        description:
+          "Sautéed mushrooms in a spiced tomato-onion gravy, served with cumin rice",
+        price: "₹230",
+        isPopular: false,
+        isSpicy: true,
+        isVegan: true,
+        image:
+          "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        nutrition: {
+          calories: "380",
+          protein: "10g",
+          carbs: "52g",
+          fiber: "7g",
+          fat: "14g",
+        },
+      },
+      {
+        name: "Stuffed Bell Peppers",
+        description:
+          "Colorful bell peppers stuffed with quinoa, vegetables, and melted cheese",
+        price: "₹240",
+        isPopular: true,
+        isSpicy: false,
+        isVegan: false,
+        image:
+          "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        nutrition: {
+          calories: "320",
+          protein: "14g",
+          carbs: "38g",
+          fiber: "9g",
+          fat: "12g",
+        },
+      },
+      {
+        name: "Vegetable Biryani",
+        description:
+          "Fragrant basmati rice cooked with mixed vegetables and aromatic spices",
+        price: "₹220",
         isPopular: true,
         isSpicy: true,
-        isVegan: false
+        isVegan: true,
+        image:
+          "https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1971&q=80",
+        nutrition: {
+          calories: "410",
+          protein: "9g",
+          carbs: "65g",
+          fiber: "7g",
+          fat: "12g",
+        },
+      },
+    ],
+  },
+];
+const weekendsMenu = [
+  {
+    id: "weekends-menu",
+    name: "Weekends Menu",
+    items: [
+      {
+        name: "Stuffed Bell Peppers",
+        description:
+          "Colorful bell peppers stuffed with quinoa, vegetables, and melted cheese",
+        price: "₹240",
+        isPopular: true,
+        isSpicy: false,
+        isVegan: false,
+        image:
+          "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        nutrition: {
+          calories: "320",
+          protein: "14g",
+          carbs: "38g",
+          fiber: "9g",
+          fat: "12g",
+        },
       },
       {
-        name: 'Lentil & Spinach Soup',
-        description: 'Hearty lentil soup with fresh spinach, served with multigrain bread',
-        price: '₹180',
-        isPopular: false,
-        isSpicy: false,
-        isVegan: true
+        name: "Vegetable Biryani",
+        description:
+          "Fragrant basmati rice cooked with mixed vegetables and aromatic spices",
+        price: "₹220",
+        isPopular: true,
+        isSpicy: true,
+        isVegan: true,
+        image:
+          "https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1971&q=80",
+        nutrition: {
+          calories: "410",
+          protein: "9g",
+          carbs: "65g",
+          fiber: "7g",
+          fat: "12g",
+        },
       },
       {
-        name: 'Palak Paneer with Brown Rice',
-        description: 'Fresh spinach curry with homemade paneer, served with brown rice',
-        price: '₹230',
+        name: "Quinoa & Roasted Vegetable Bowl",
+        description:
+          "Protein-packed quinoa with seasonal roasted vegetables and tahini dressing",
+        price: "₹220",
+        isPopular: true,
+        isSpicy: false,
+        isVegan: true,
+        image:
+          "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        nutrition: {
+          calories: "360",
+          protein: "15g",
+          carbs: "42g",
+          fiber: "10g",
+          fat: "16g",
+        },
+      },
+      {
+        name: "Paneer Tikka Wrap",
+        description:
+          "Grilled paneer tikka with fresh vegetables in a whole wheat wrap",
+        price: "₹200",
+        isPopular: true,
+        isSpicy: true,
+        isVegan: false,
+        image:
+          "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        nutrition: {
+          calories: "380",
+          protein: "20g",
+          carbs: "35g",
+          fiber: "6g",
+          fat: "18g",
+        },
+      },
+      {
+        name: "Lentil & Spinach Soup",
+        description:
+          "Hearty lentil soup with fresh spinach, served with multigrain bread",
+        price: "₹180",
         isPopular: false,
         isSpicy: false,
-        isVegan: false
+        isVegan: true,
+        nutrition: {
+          calories: "280",
+          protein: "12g",
+          carbs: "30g",
+          fiber: "5g",
+          fat: "10g",
+        },
       },
-    ]
+      {
+        name: "Palak Paneer with Brown Rice",
+        description:
+          "Fresh spinach curry with homemade paneer, served with brown rice",
+        price: "₹230",
+        isPopular: false,
+        isSpicy: false,
+        isVegan: false,
+        nutrition: {
+          calories: "320",
+          protein: "14g",
+          carbs: "38g",
+          fiber: "9g",
+          fat: "12g",
+        },
+      },
+    ],
   },
 ];
 ---
 
-<section id="menu" class="section bg-gray-50">
+<section id="menu" class="py-16 md:py-24 bg-gray-50">
   <div class="container">
-    <div class="section-title">
-      <span class="text-primary-600 font-medium">Our Menu</span>
-      <h2>Delicious & Healthy Choices</h2>
-      <div class="divider"></div>
-      <p class="text-gray-600 max-w-3xl mx-auto">
-        Explore our carefully crafted menu featuring nutritious and flavorful vegetarian dishes made with the freshest ingredients.
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        Doctor-Designed Menu
+      </h2>
+      <div class="w-20 h-1 bg-primary-600 mx-auto mb-6"></div>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Each dish is personally crafted by me, combining my expertise as a
+        doctor, nutritionist, and dietician. I've carefully balanced proteins,
+        complex carbs, and essential nutrients to create meals that are as
+        healthy as they are delicious.
       </p>
-    </div>
-    
-    <div class="space-y-12">
-      {menuCategories.map(category => (
-        <div key={category.id} id={category.id} class="scroll-mt-24">          
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {category.items.map((item, index) => (
-              <div key={index} class={`bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg ${item.isPopular ? 'border-2 border-primary-200' : 'border border-gray-100'}`}>
-                <div class="p-6">
-                  <div class="flex justify-between items-start mb-2">
-                    <h4 class="text-lg font-semibold text-gray-900">
-                      {item.name}
-                      {item.isPopular && (
-                        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                          <FaStar class="mr-1" /> Popular
-                        </span>
-                      )}
-                    </h4>
-                    <span class="text-lg font-bold text-primary-600">{item.price}</span>
-                  </div>
-                  
-                  <p class="text-gray-600 text-sm mb-4">{item.description}</p>
-                  
-                  <div class="flex items-center text-xs text-gray-500 space-x-3">
-                    {item.isVegan && (
-                      <span class="inline-flex items-center">
-                        <FaLeaf class="mr-1 text-green-600" />&nbsp;Vegan
-                      </span>
-                    )}
-                    {item.isSpicy && (
-                      <span class="inline-flex items-center">
-                        <FaFire class="mr-1 text-red-500" />&nbsp;Spicy
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+
+      <!-- Menu Tabs -->
+      <div class="flex justify-center my-12">
+        <div class="inline-flex rounded-md shadow-sm" role="group">
+          <button
+            type="button"
+            class="menu-tab px-6 py-3 text-sm font-medium rounded-l-lg focus:z-10 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors duration-200 bg-primary-600 text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500"
+            data-panel="weekdays-menu"
+            onclick="switchTab('weekdays-menu'); this.blur();"
+          >
+            Weekdays Menu
+          </button>
+          <button
+            type="button"
+            class="menu-tab px-6 py-3 text-sm font-medium rounded-r-lg focus:z-10 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors duration-200 bg-white text-gray-700 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-500"
+            data-panel="weekends-menu"
+            onclick="switchTab('weekends-menu'); this.blur();"
+          >
+            Weekends Menu
+          </button>
         </div>
-      ))}
+      </div>
     </div>
-    
+
+    <!-- Weekdays Menu Panel -->
+    <div id="weekdays-menu" class="menu-panel space-y-12">
+      {
+        weekdaysMenu.map((category) => (
+          <div id={category.id} class="scroll-mt-24">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {category.items.map((item) => (
+                <MenuItem item={item} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Weekends Menu Panel -->
+    <div id="weekends-menu" class="menu-panel space-y-12 hidden">
+      {
+        weekendsMenu.map((category) => (
+          <div id={`weekend-${category.id}`} class="scroll-mt-24">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {category.items.map((item, index) => (
+                <MenuItem item={item} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
     <div class="mt-12 text-center">
-      <p class="text-gray-600 mb-6">
-        * Please inform us about any food allergies or dietary restrictions.
+      <p class="text-gray-600 mb-6 max-w-2xl mx-auto text-center">
+        Explore our delicious vegetarian dishes made with fresh, seasonal
+        ingredients. * Please inform us about any food allergies or dietary
+        restrictions.
       </p>
-      <a href="#contact" class="btn btn-primary">
-        Place an Order
+      <a href="#order" class="btn btn-primary" data-scroll-to="order">
+        Place Orders
       </a>
     </div>
   </div>
+
+  <!-- Tab Script -->
+  <script is:inline>
+    // Simple tab switching function
+    function switchTab(panelId) {
+      // Hide all panels
+      document.querySelectorAll(".menu-panel").forEach((panel) => {
+        panel.classList.add("hidden");
+      });
+
+      // Update tab states
+      document.querySelectorAll(".menu-tab").forEach((tab) => {
+        const isActive = tab.getAttribute("data-panel") === panelId;
+        tab.classList.toggle("bg-primary-600", isActive);
+        tab.classList.toggle("text-white", isActive);
+        tab.classList.toggle("bg-white", !isActive);
+        tab.classList.toggle("text-gray-700", !isActive);
+        tab.classList.toggle("hover:bg-gray-50", !isActive);
+      });
+
+      // Show selected panel
+      const activePanel = document.getElementById(panelId);
+      if (activePanel) {
+        activePanel.classList.remove("hidden");
+      }
+    }
+
+    // Helper function to get the default tab based on current day
+    function getDefaultTab() {
+      const today = new Date().getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+      // If it's Saturday (6) or Sunday (0), show weekends menu, otherwise weekdays
+      return (today === 0 || today === 6) ? 'weekends-menu' : 'weekdays-menu';
+    }
+
+    // Initialize tabs when the page loads
+    document.addEventListener("DOMContentLoaded", () => {
+      // Set up click handlers for tabs
+      document.querySelectorAll(".menu-tab").forEach((tab) => {
+        tab.addEventListener("click", (e) => {
+          const panelId = e.currentTarget.getAttribute("data-panel");
+          if (panelId) {
+            switchTab(panelId);
+          }
+        });
+      });
+
+      // Activate the appropriate tab based on current day
+      const defaultTabId = getDefaultTab();
+      const defaultTab = document.querySelector(`.menu-tab[data-panel="${defaultTabId}"]`);
+      if (defaultTab) {
+        switchTab(defaultTabId);
+      }
+    });
+  </script>
 </section>

@@ -5,12 +5,14 @@ import { FaUtensils, FaLeaf, FaHeart } from 'react-icons/fa';
 <section id="home" class="relative overflow-hidden bg-gray-50">
   {/* Background image */}
   <div class="absolute inset-0 z-0">
-    <img
-      src="https://images.pexels.com/photos/247685/pexels-photo-247685.png"
-      alt="Healthy vegetarian food"
-      class="w-full h-full object-cover opacity-30"
-      loading="eager"
-    />
+    <div class="w-full h-full overflow-hidden">
+      <img
+        src="https://images.pexels.com/photos/247685/pexels-photo-247685.png"
+        alt="Healthy vegetarian food"
+        class="w-full h-full object-cover opacity-30 scale-x-[-1]"
+        loading="eager"
+      />
+    </div>
   </div>
 
   <div class="relative z-10 container py-24 md:py-32 lg:py-40">
@@ -20,19 +22,19 @@ import { FaUtensils, FaLeaf, FaHeart } from 'react-icons/fa';
       </span>
       
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-        Healthy, Delicious <span class="text-primary-600">Vegetarian</span> Cuisine
+        Doctor-Crafted <span class="text-primary-600">Nutrition</span> & Culinary Excellence
       </h1>
       
-      <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl">
-        Experience the perfect blend of taste and nutrition with our chef-crafted vegetarian dishes, made from the freshest ingredients.
+      <p class="text-lg md:text-xl text-black mb-8 max-w-2xl">
+        As a qualified doctor, nutritionist, and dietician, I've crafted each dish with scientific precision. Enjoy delicious vegetarian cuisine that balances taste with optimal nutrition, portion control, and essential nutrients for your well-being.
       </p>
       
       <div class="flex flex-col sm:flex-row gap-4">
-        <a href="#menu" class="btn btn-primary">
-          View Our Menu
+        <a href="#order" class="btn btn-primary">
+          Place Orders
         </a>
-        <a href="#contact" class="btn btn-outline">
-          Contact Us
+        <a href="#menu" class="btn btn-outline">
+          View Our Menu
         </a>
       </div>
       

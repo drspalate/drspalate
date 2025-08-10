@@ -1,31 +1,15 @@
 // Service Worker for Dr's Palate
-// Version: 1.0.0
+// Version: 2.0.0 - Updated 2025-08-10
 
-const CACHE_NAME = 'drspalate-v1';
+const CACHE_NAME = 'drspalate-v2';
 const OFFLINE_URL = '/offline.html';
+// Only include files that actually exist in the project
 const PRECACHE_URLS = [
   '/',
   '/index.html',
   '/manifest.json',
   '/favicon.ico',
-  '/favicon.svg',
-  '/apple-touch-icon.png',
-  '/safari-pinned-tab.svg',
-  // Fonts
-  '/fonts/poppins-v20-latin-regular.woff2',
-  '/fonts/open-sans-v34-latin-regular.woff2',
-  // Critical CSS and JS
-  '/styles/global.css',
-  '/styles/critical.css',
-  '/scripts/main.js',
-  // Images
-  '/images/logo.svg',
-  '/images/hero-bg-400.jpg',
-  '/images/hero-bg-800.jpg',
-  '/images/hero-bg-1200.jpg',
-  '/images/hero-bg-1600.jpg',
-  '/images/og-image.jpg',
-  '/images/twitter-card.jpg',
+  '/logo.png',
   // Fallback pages
   OFFLINE_URL
 ];
@@ -37,7 +21,16 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('[Service Worker] Caching app shell');
-        return cache.addAll(PRECACHE_URLS);
+        // Cache each file individually to prevent failing the entire cache if one file is missing
+        return Promise.all(
+          PRECACHE_URLS.map(url => {
+            return cache.add(url).catch(err => {
+              console.warn(`[Service Worker] Failed to cache ${url}:`, err);
+              // Don't fail the entire installation if a single file fails to cache
+              return Promise.resolve();
+            });
+          })
+        );
       })
       .then(() => self.skipWaiting())
   );
@@ -63,64 +56,79 @@ self.addEventListener('activate', event => {
 
 // Fetch event - serve from cache, falling back to network
 self.addEventListener('fetch', event => {
-  // Skip cross-origin requests
+  // Skip non-GET requests and chrome-extension URLs
+  if (event.request.method !== 'GET' || event.request.url.startsWith('chrome-extension://')) {
+    return;
+  }
+
+  // Skip cross-origin requests that we don't control
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') {
-    return;
-  }
-
-  // Handle navigation requests with network-first strategy
+  // Handle navigation requests
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
-        .then(response => {
-          // Clone the response to cache it
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME)
-            .then(cache => cache.put(event.request, responseToCache));
-          return response;
-        })
-        .catch(() => {
-          // If network fails, try to serve from cache
-          return caches.match(event.request)
-            .then(response => {
-              // If not in cache, show offline page
-              if (!response) {
-                return caches.match(OFFLINE_URL);
-              }
-              return response;
-            });
-        })
+        .catch(() => caches.match(OFFLINE_URL, { ignoreSearch: true }))
     );
-  } else {
-    // For other requests, use cache-first strategy
-    event.respondWith(
-      caches.match(event.request)
-        .then(response => {
-          // Return cached response if found
-          if (response) {
-            return response;
-          }
-          // Otherwise, fetch from network and cache the response
-          return fetch(event.request)
-            .then(response => {
-              // Check if we received a valid response
-              if (!response || response.status !== 200 || response.type !== 'basic') {
-                return response;
-              }
-              // Clone the response to cache it
-              const responseToCache = response.clone();
-              caches.open(CACHE_NAME)
-                .then(cache => cache.put(event.request, responseToCache));
-              return response;
-            });
-        })
-    );
+    return;
   }
+
+  // For all GET requests, try cache first, then network
+  event.respondWith(
+    caches.match(event.request, { ignoreSearch: true })
+      .then(response => {
+        // Return cached response if found
+        if (response) {
+          return response;
+        }
+        
+        // Otherwise, fetch from network
+        return fetch(event.request)
+          .then(networkResponse => {
+            // Check if we received a valid response
+            if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+              return networkResponse;
+            }
+
+            // Clone the response for caching
+            const responseToCache = networkResponse.clone();
+
+            // Cache the response for future use
+            caches.open(CACHE_NAME)
+              .then(cache => {
+                cache.put(event.request, responseToCache);
+              });
+
+            return networkResponse;
+          })
+          .catch(() => {
+            // If network fails, handle different types of requests
+            if (event.request.destination === 'image') {
+              // For images, return a transparent pixel
+              return new Response(
+                'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+                { headers: { 'Content-Type': 'image/gif' } }
+              );
+            } else if (event.request.destination === 'font') {
+              // For fonts, return a transparent font
+              return new Response(
+                'AAEAAAASAQAABAAgR0RFRgAAAAEAAAAyHk1MAAAAGgAAAMwAAAAB3RJTUUH5AoKByQJ8i5kFQAAABlJREFUOMtjYBgFo2AUjIJRMApGwSgYBaNgFAwCAEwEAwA1vQH6AAAAAElFTkSuQmCC',
+                { headers: { 'Content-Type': 'font/woff2' } }
+              );
+            } else if (event.request.destination === 'style' || event.request.destination === 'script') {
+              // For CSS/JS, return empty responses
+              return new Response('', { 
+                headers: { 'Content-Type': event.request.destination === 'style' ? 'text/css' : 'application/javascript' } 
+              });
+            }
+            
+            // For all other requests, return the offline page
+            return caches.match(OFFLINE_URL);
+          });
+      })
+  );
 });
 
 // Handle background sync

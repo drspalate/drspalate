@@ -8,7 +8,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://drspalate.com/</loc>
-    <lastmod>2023-06-15</lastmod>
+    <lastmod>2025-08-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -16,25 +16,25 @@
   <!-- Menu Section -->
   <url>
     <loc>https://drspalate.com/#menu</loc>
-    <lastmod>2023-06-15</lastmod>
+    <lastmod>2025-08-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-  </url>
-  
-  <!-- Gallery Section -->
-  <url>
-    <loc>https://drspalate.com/#gallery</loc>
-    <lastmod>2023-06-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
   </url>
   
   <!-- Contact Section -->
   <url>
     <loc>https://drspalate.com/#contact</loc>
-    <lastmod>2023-06-15</lastmod>
+    <lastmod>2025-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  
+  <!-- Order Online Section -->
+  <url>
+    <loc>https://drspalate.com/#order</loc>
+    <lastmod>2025-08-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
